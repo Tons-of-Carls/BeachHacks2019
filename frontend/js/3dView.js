@@ -52,7 +52,7 @@ function addVector(origin_x,origin_y,origin_z,dir_x,dir_y,dir_z, length, color)
 }
 
 function addParticle(x=-5,y=0,z=0) {
-  var geometry = new THREE.SphereGeometry( .01 );
+  var geometry = new THREE.SphereGeometry( .1 );
   var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
   var sphere = new THREE.Mesh( geometry, material );
   scene.add( sphere );

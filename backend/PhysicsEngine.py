@@ -3,6 +3,7 @@ from scipy.stats import norm, maxwell
 from bottle import route, run, request, response
 import json
 from scipy.stats import maxwell
+import numpy as np
 
 def get_scale_from_sigma(sigma):
     a2 = np.pi*sigma / (3.0*np.pi - 8.0)
@@ -110,6 +111,7 @@ def many_particles(T, L, atom, magnetic_gradient, big_num):
 
 @route('/sternGerlachExperiment', method="POST")
 def index():
+    print("start")
     body = request.body.read()
     jsonObj = json.loads(body)
     temperature = int(jsonObj['temperature'])
@@ -120,6 +122,7 @@ def index():
     response.set_header('Access-Control-Allow-Origin', '*')
     dataSent = many_particles(temperature, dim, Particle, MFG, numSim)
     print(dataSent)
+    print("end")
     return dataSent
 
 
