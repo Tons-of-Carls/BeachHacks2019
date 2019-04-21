@@ -22,24 +22,6 @@ var activeParticle;
 
 camera.position.z = 5;
 
-function animate()
-{
-  requestAnimationFrame(animate);
-
-  if( activeParticle && activeParticle.position.x < 5 )
-  {
-    activeParticle.position.x += .1
-    frameNum+=1;
-  }
-  else{
-    frameNum = 0;
-    particleNum+=1;
-    addParticle()
-  }
-
-  renderer.render(scene,camera);
-}
-
 function addVector(origin_x,origin_y,origin_z,dir_x,dir_y,dir_z, length, color)
 {
   var origin = new THREE.Vector3( origin_x, origin_y, origin_z );
