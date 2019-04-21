@@ -45,7 +45,7 @@ function addVector(origin_x,origin_y,origin_z,dir_x,dir_y,dir_z, length, color)
   var origin = new THREE.Vector3( origin_x, origin_y, origin_z );
   var dir = new THREE.Vector3( dir_x, dir_y, dir_z );
   dir.normalize();
-
+  console.log(color);
   var arrowHelper = new THREE.ArrowHelper( dir, origin, length, color , .1, .1);
   scene.add( arrowHelper );
   vectorList.push(arrowHelper);
@@ -96,10 +96,38 @@ function abs(num) {
   return num;
 }
 
+
+function createVectorField() {
+  for(var x = -num; x <= num; x++)
+  {
+    for(var y = -num; y <= num; y++)
+    {
+      for(var z = -num; z <= num; z++)
+      {
+        addVector(x,y,z,0,0,1,.5, ((y+num)/(2*num))*255*256*256 + 0*255*256 + (((y+num)/(-2*num))+num)*255);
+      }
+    }
+  }
+}
+
 async function onSubmit () {
   var MFGradient = document.getElementById("MFGradient").value;
   var numSimulations = document.getElementById("simNum").value;
   var temperature = document.getElementById("Temperature").value;
+  var dimension = document.getElementById("dimension").value;
+
+  console.log(document.getElementById("dimension"));
+
+
+  console.log(dimension);
+  if(dimension !== "" && !document.getElementById("dimension").validity.badInput){
+    num=parseInt(dimension);
+    console.log("dim:");
+    console.log(dimension);
+    removeVectors();
+    vectorList=[];
+    createVectorField();
+  }
 
   console.log(MFGradient);
   console.log(numSimulations);
@@ -155,15 +183,8 @@ function animate()
   renderer.render(scene,camera);
 }
 
-for(var x = -num; x <= num; x++)
-{
-  for(var y = -num; y <= num; y++)
-  {
-    for(var z = -num; z <= num; z++)
-    {
-      addVector(x,y,z,0,0,1,.5, ((y+num)/(2*num))*255*256*256 + 0*255*256 + (((y+num)/(-2*num))+num)*255);
-    }
-  }
-}
+
+
+createVectorField();
 
 animate();
