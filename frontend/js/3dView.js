@@ -96,7 +96,7 @@ function abs(num) {
   return num;
 }
 
-function onSubmit() {
+async function onSubmit () {
   var MFGradient = document.getElementById("MFGradient").value;
   var numSimulations = document.getElementById("simNum").value;
   var temperature = document.getElementById("Temperature").value;
@@ -113,17 +113,17 @@ function onSubmit() {
     dim: num,
   };
 
-  fetch(
+  var responce = await fetch(
     "http://localhost:8080/sternGerlachExperiment",
     {
       method:"POST",
       body:JSON.stringify(data)
     }
-  ).then(res=>{
-    res.json()
-  }).then((json)=>{
-    console.log(json);
-  });
+  );
+
+  responce = await responce.json();
+
+  console.log(responce);
 }
 
 function animate()
@@ -144,7 +144,7 @@ function animate()
   renderer.render(scene,camera);
 }
 
-var num = 3;
+var num = 1;
 
 for(var x = -num; x <= num; x++)
 {
