@@ -7,6 +7,8 @@ var vectorList = [];
 var particleSelected;
 
 
+var num = 3;
+
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, 2, 0.1, 1000);
 var renderer = new THREE.WebGLRenderer();
@@ -107,8 +109,9 @@ function onSubmit() {
     temperature: temperature,
     numSim: numSimulations,
     MFG: MFGradient,
-    Particle: particleSelected
-  }
+    Particle: particleSelected,
+    dim: num,
+  };
 
   fetch(
     "http://localhost:8080/sternGerlachExperiment",
