@@ -130,7 +130,7 @@ function animate()
 {
   requestAnimationFrame(animate);
 
-  if( activeParticle && activeParticle.position.x < 4 )
+  if( activeParticle && frameNum < motionProfilList[""+particleNum].length )
   {
     activeParticle.position.x = motionProfilList[""+particleNum][frameNum][0];
     activeParticle.position.y = motionProfilList[""+particleNum][frameNum][1];
