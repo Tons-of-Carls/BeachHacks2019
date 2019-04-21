@@ -7,7 +7,7 @@ var vectorList = [];
 var particleSelected;
 
 
-var num = 3;
+var num = 1;
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, 2, 0.1, 1000);
@@ -121,9 +121,9 @@ async function onSubmit () {
     }
   );
 
-  responce = await responce.json();
+  motionProfilList = await responce.json();
 
-  console.log(responce);
+  addParticle(0,0,0);
 }
 
 function animate()
@@ -132,21 +132,21 @@ function animate()
 
   if( activeParticle && activeParticle.position.x < 4 )
   {
-    activeParticle.position.x += .1
+    activeParticle.position.x = motionProfilList[""+particleNum][frameNum][0];
+    activeParticle.position.y = motionProfilList[""+particleNum][frameNum][1];
+    activeParticle.position.z = motionProfilList[""+particleNum][frameNum][2];
     frameNum+=1;
   }
-  else if(particleNum < 1){
+  else if(motionProfilList != null && particleNum < Object.keys(motionProfilList).length){
     frameNum = 0;
     particleNum+=1;
-    addParticle(-5,0.6,2.3)
+    addParticle(0,0,0)
   }
 
   renderer.render(scene,camera);
 }
 
-var num = 1;
-
-for(var x = -num; x <= num; x++)
+for(var x = 0; x <= 2*num; x++)
 {
   for(var y = -num; y <= num; y++)
   {
@@ -156,7 +156,5 @@ for(var x = -num; x <= num; x++)
     }
   }
 }
-
-addParticle();
 
 animate();
