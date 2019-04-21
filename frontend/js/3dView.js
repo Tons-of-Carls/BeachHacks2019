@@ -113,10 +113,14 @@ function onSubmit() {
   fetch(
     "http://localhost:8080/sterm_gerlach_experiment",
     {
-      method:"GET",
+      method:"POST",
       body:JSON.stringify(data)
     }
-  );
+  ).then(res=>{
+    res.json()
+  }).then((json)=>{
+    console.log(json);
+  });
 }
 
 function animate()
