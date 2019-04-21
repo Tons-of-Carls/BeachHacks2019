@@ -61,8 +61,8 @@ def intrinsicDipoleMomentum(particle):
     while s >= negative_s:
         m_s.append(s)
         s -= 1
-    random_m_s = random.choice(m_s) * 100
 
+    random_m_s = random.choice(m_s)*100
     momentum = -g * (q/(2*m))* random_m_s * h_bar
     return momentum
 
