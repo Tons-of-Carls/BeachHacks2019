@@ -1,8 +1,25 @@
 import random
-from scipy.stats import norm
+from scipy.stats import norm, maxwell
 from bottle import route, run, request, response
 import json
-#example of electron (hydrogen) in stern-gerlach experiment
+from scipy.stats import maxwell
+
+def get_scale_from_sigma(sigma):
+    a2 = np.pi*sigma / (3.0*np.pi - 8.0)
+    return np.sqrt(a2)
+
+def get_loc_from_mu_sigma(mu, sigma):
+    scale = get_scale_from_sigma(sigma)
+    loc = mu - 2.0 * scale * np.sqrt(2.0 / np.pi)
+    return loc
+
+sigma = 1.0
+mu    = 2.0 * get_scale_from_sigma(sigma) * np.sqrt(2.0 / np.pi) # + 3.0 as shift, for exampl
+print(mu, sigma)
+
+scale = get_scale_from_sigma(sigma) #use later for maxwell
+loc   = get_loc_from_mu_sigma(mu, sigma) #also for maxwell
+
 
 m_e = 9.10938291E-31
 q_e = 1.60217662E-19
@@ -13,11 +30,14 @@ TPF = 0.000004
 
 e = {"g": 2, "q": -q_e, "m": m_e, "s": 0.5}
 hydrogen = {'M': (1.00794 * u), 'valence': e}
-atomBook = {"hydrogen": hydrogen}
-def get_y_velocity():
-    y_velocity = norm.rvs(loc=0, scale=1)
-    return y_velocity
+lithium = {'M': (6.941 * u), 'valence': e}
+sodium = {'M': (22.989769 * u), 'valence': e}
+atomBook = {"hydrogen": hydrogen, 'lithium': lithium, 'sodium': sodium}
 
+
+def get_y_velocity():
+    y_velocity = norm.rvs(loc=0, scale=100)
+    return y_velocity
 
 def get_x_velocity(T, L, atom):
     '''
@@ -25,8 +45,8 @@ def get_x_velocity(T, L, atom):
 
     '''
     x_velocity_avg = ((3 * T * k_b)/(atom['M'])) ** (1/2)
-    time = L/x_velocity_avg
-    return x_velocity_avg
+    x_velocity = maxwell.rvs(scale = scale, loc = loc)
+    return x_velocity
 
 def getTime(T, L, atom):
     x_velocity = get_x_velocity(T, L, atom)
@@ -41,7 +61,7 @@ def intrinsicDipoleMomentum(particle):
     while s >= negative_s:
         m_s.append(s)
         s -= 1
-    random_m_s = random.choice(m_s)
+    random_m_s = random.choice(m_s) * 100
 
     momentum = -g * (q/(2*m))* random_m_s * h_bar
     return momentum
@@ -75,9 +95,9 @@ def position(T, L, atom, magnetic_gradient):
     times = [TPF * i for i in range(int(endTime//TPF) + 1)]
     times.append(endTime)
     for i in times:
-        x_distance = x_velocity * i
-        y_distance = y_velocity * i
-        z_distance = (1/2) * z_acceleration * i**2
+        x_distance = round(x_velocity * i, 8)
+        y_distance = round(y_velocity * i, 8)
+        z_distance = round((1/2) * z_acceleration * i**2, 8)
         position.append([x_distance, y_distance, z_distance])
     return position
 
