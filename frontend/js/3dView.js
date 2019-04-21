@@ -111,7 +111,7 @@ function onSubmit() {
   }
 
   fetch(
-    "http://localhost:8080/sterm_gerlach_experiment",
+    "http://localhost:8080/sternGerlachExperiment",
     {
       method:"POST",
       body:JSON.stringify(data)

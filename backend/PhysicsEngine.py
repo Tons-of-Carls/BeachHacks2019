@@ -87,7 +87,7 @@ def many_particles(T, L, atom, magnetic_gradient, big_num):
         particle_dict[i] = position(T, L, atom, magnetic_gradient)
     return particle_dict
 
-@route('/stern_gerlach_experiment')
+@route('/sternGerlachExperiment', method="POST")
 def index():
     print(request.body)
 
