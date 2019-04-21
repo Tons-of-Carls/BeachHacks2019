@@ -137,10 +137,16 @@ function animate()
     activeParticle.position.z = motionProfilList[""+particleNum][frameNum][2];
     frameNum+=1;
   }
-  else if(motionProfilList != null && particleNum < Object.keys(motionProfilList).length){
+  else if(motionProfilList != null){
     frameNum = 0;
     particleNum+=1;
-    addParticle(0,0,0)
+    if(particleNum < Object.keys(motionProfilList).length) {
+      addParticle(0,0,0);
+    }
+    else {
+      activeParticle = null;
+      motionProfilList = null;
+    }
   }
 
   renderer.render(scene,camera);
