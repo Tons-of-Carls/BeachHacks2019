@@ -22,6 +22,29 @@ var activeParticle;
 
 camera.position.z = 5;
 
+
+
+//x
+var origin = new THREE.Vector3( -2, -2, -2 );
+var dir = new THREE.Vector3( 1, 0, 0 );
+var arrowHelper = new THREE.ArrowHelper( dir, origin, 1, 0xff0000 , .1, .1);
+scene.add( arrowHelper );
+
+//y
+var origin = new THREE.Vector3(-2, -2, -2);
+var dir = new THREE.Vector3( 0, 1, 0 );
+var arrowHelper = new THREE.ArrowHelper( dir, origin, 1, 0x00ff00 , .1, .1);
+scene.add( arrowHelper );
+
+//z
+var origin = new THREE.Vector3(-2, -2, -2);
+var dir = new THREE.Vector3( 0, 0, 1  );
+var arrowHelper = new THREE.ArrowHelper( dir, origin, 1, 0x0000ff , .1, .1);
+scene.add( arrowHelper );
+
+
+
+
 function addVector(origin_x,origin_y,origin_z,dir_x,dir_y,dir_z, length, color)
 {
   var origin = new THREE.Vector3( origin_x, origin_y, origin_z );
