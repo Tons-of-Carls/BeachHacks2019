@@ -1,6 +1,7 @@
 import random
 from scipy.stats import norm
 from bottle import route, run, request, response
+import json
 #example of electron (hydrogen) in stern-gerlach experiment
 
 m_e = 9.10938291E-31
@@ -89,9 +90,17 @@ def many_particles(T, L, atom, magnetic_gradient, big_num):
 
 @route('/sternGerlachExperiment', method="POST")
 def index():
-    print(request.body)
-
-
+    body = request.body.read()
+    jsonObj = json.loads(body)
+    temperature = int(jsonObj['temperature'])
+    numSim = int(jsonObj['numSim'])
+    MFG = float(jsonObj['MFG'])
+    Particle = jsonObj["Particle"]
+    dim = float(jsonObj['dim'])
+    response.set_header('Access-Control-Allow-Origin', '*')
+    dataSent = many_particles(temperature, dim, Particle, MFG, numSim)
+    print(dataSent)
+    return dataSent
 
 
 run(host='localhost', port=8080)
