@@ -15,7 +15,7 @@ e = {"g": 2, "q": -q_e, "m": m_e, "s": 0.5}
 hydrogen = {'M': (1.00794 * u), 'valence': e}
 atomBook = {"hydrogen": hydrogen}
 def get_y_velocity():
-    y_velocity = norm.rvs(loc=0, scale=1)
+    y_velocity = norm.rvs(loc=0, scale=100)
     return y_velocity
 
 
@@ -41,7 +41,7 @@ def intrinsicDipoleMomentum(particle):
     while s >= negative_s:
         m_s.append(s)
         s -= 1
-    random_m_s = random.choice(m_s)
+    random_m_s = random.choice(m_s)*100
 
     momentum = -g * (q/(2*m))* random_m_s * h_bar
     return momentum

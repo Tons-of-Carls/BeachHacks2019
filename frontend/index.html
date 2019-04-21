@@ -18,17 +18,20 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-12 d-flex flex-row justify-content-center">
-                    <div id="canvas" class="jumbotron">
-                        <div class="input-group mb-3">
-                            <div class="input-group-text">
-                                <input checked="true" id="showVectors" onchange="onShowVectorChange()" type="checkbox" aria-label="Checkbox for following text input">
-                            </div>
-                            <span class="input-group-text">
-                            Show Magnetic Field
-                        </span>
+                <div class="col-12">
+                    <div class="input-group mb-3 d-flex flex-row justify-content-center">
+                        <div class="input-group-text">
+                            <input checked="true" id="showVectors" onchange="onShowVectorChange()" type="checkbox" aria-label="Checkbox for following text input">
                         </div>
+                        <span class="input-group-text">
+                        Show Magnetic Field
+                        </span>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="canvas" class="col-12 d-flex flex-row justify-content-center">
+
                 </div>
             </div>
         </div>
@@ -36,47 +39,50 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Number of Simulations</span>
-                        </div>
-                        <input id="simNum" min="1" type="number" aria-label="Number of Simulations" class="form-control"/>
-                    </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Temperature</span>
-                            </div>
-                            <input id="Temperature" min="1" type="number" aria-label="Temperature" class="form-control"/>
-                            <div class="input-group-append">
-                                <span class="input-group-text">K</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="jumbotron">
 
-                    <div class="input-group mb-3">
-                        <div class="input-group">
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Magnetic Filed Gradient</span>
+                                <span class="input-group-text">Number of Simulations</span>
                             </div>
-                            <input id="MFGradient" min="1" type="number" aria-label="Magnetic Filed Gradient" class="form-control"/>
-                            <div class="input-group-append">
-                                <button id="dropdown" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Particle</button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" onclick="onParticleSelect('hydrogen')" >Action</a>
-                                    <a class="dropdown-item" onclick="onParticleSelect(2)" >Another action</a>
-                                    <a class="dropdown-item" onclick="onParticleSelect(3)" >Something else here</a>
-                                    <a class="dropdown-item" onclick="onParticleSelect(4)" >Separated link</a>
+                            <input id="simNum" min="1" type="number" aria-label="Number of Simulations" class="form-control"/>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Temperature</span>
+                                </div>
+                                <input id="Temperature" min="1" type="number" aria-label="Temperature" class="form-control"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">K</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="input-group mb-5">
-                        <button onclick="onSubmit()" type="button" class="btn btn-secondary  btn-lg btn-block">Submit</button>
-                    </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Magnetic Filed Gradient</span>
+                                </div>
+                                <input id="MFGradient" min="1" type="number" aria-label="Magnetic Filed Gradient" class="form-control"/>
+                                <div class="input-group-append">
+                                    <button id="dropdown" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Particle</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" onclick="onParticleSelect('hydrogen')" >Hydrogen</a>
+                                        <a class="dropdown-item" onclick="onParticleSelect('sodium')" >Sodium</a>
+                                        <a class="dropdown-item" onclick="onParticleSelect('lithium')" >Lithium</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="input-group">
+                            <button onclick="onSubmit()" type="button" class="btn btn-secondary  btn-lg btn-block">Submit</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

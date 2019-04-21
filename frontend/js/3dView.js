@@ -52,7 +52,7 @@ function addVector(origin_x,origin_y,origin_z,dir_x,dir_y,dir_z, length, color)
 }
 
 function addParticle(x=-5,y=0,z=0) {
-  var geometry = new THREE.SphereGeometry( .1 );
+  var geometry = new THREE.SphereGeometry( .01 );
   var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
   var sphere = new THREE.Mesh( geometry, material );
   scene.add( sphere );
@@ -110,7 +110,7 @@ async function onSubmit () {
     numSim: numSimulations,
     MFG: MFGradient,
     Particle: particleSelected,
-    dim: num,
+    dim: 2*num,
   };
 
   var responce = await fetch(
@@ -132,9 +132,12 @@ function animate()
 
   if( activeParticle && frameNum < motionProfilList[""+particleNum].length )
   {
-    activeParticle.position.x = motionProfilList[""+particleNum][frameNum][0];
+    activeParticle.position.x = motionProfilList[""+particleNum][frameNum][0]-num;
+    //console.log("x:", motionProfilList[""+particleNum][frameNum][0]);
     activeParticle.position.y = motionProfilList[""+particleNum][frameNum][1];
+    //console.log("y:", motionProfilList[""+particleNum][frameNum][1]);
     activeParticle.position.z = motionProfilList[""+particleNum][frameNum][2];
+    //console.log("z:", motionProfilList[""+particleNum][frameNum][2]);
     frameNum+=1;
   }
   else if(motionProfilList != null){
@@ -152,13 +155,13 @@ function animate()
   renderer.render(scene,camera);
 }
 
-for(var x = 0; x <= 2*num; x++)
+for(var x = -num; x <= num; x++)
 {
   for(var y = -num; y <= num; y++)
   {
     for(var z = -num; z <= num; z++)
     {
-      addVector(x,y,z,0,1,0,.5, ((y+num)/(2*num))*255*256*256 + 0*255*256 + (((y+num)/(-2*num))+num)*255);
+      addVector(x,y,z,0,0,1,.5, ((y+num)/(2*num))*255*256*256 + 0*255*256 + (((y+num)/(-2*num))+num)*255);
     }
   }
 }
